@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ExternalLinkIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +18,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${inter.className} flex flex-col justify-between h-screen`}
+      >
+        <nav className="flex justify-between py-2 px-6">
+          <h2 className="text-sm">Tic-Tac-Toe</h2>
+          <div className="flex items-center gap-3">
+            <ThemeSwitcher />
+            <GitHubLogoIcon />
+          </div>
+        </nav>
+
+        {children}
+
+        <footer className="w-full max-w-7xl p-6 mx-auto">
+          <p className="text-sm text-center border-t border-neutral-700 py-4">
+            Created by{" "}
+            <a
+              href="https://linkedin.com/in/yhajiali"
+              target="_blank"
+              className="text-blue-500 hover:underline inline-flex items-center group"
+            >
+              <span>yhajiali</span>
+              <ExternalLinkIcon className="invisible group-hover:visible" />
+            </a>
+          </p>
+        </footer>
+      </body>
     </html>
   );
 }
