@@ -1,17 +1,14 @@
 "use client";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Props = {};
 
 function ThemeSwitcher({}: Props) {
-  const [darkMode, setDarkMode] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    localStorage.setItem("darkMode", String(darkMode));
   };
 
   return (
