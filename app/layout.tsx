@@ -25,7 +25,9 @@ export default function RootLayout({
           <h2 className="text-sm">Tic-Tac-Toe</h2>
           <div className="flex items-center gap-3">
             <ThemeSwitcher />
-            <GitHubLogoIcon />
+            <a href="https://github.com/yhajiali" target="_blank">
+              <GitHubLogoIcon />
+            </a>
           </div>
         </nav>
 

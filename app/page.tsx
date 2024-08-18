@@ -6,8 +6,8 @@ export default function Home() {
       <div className="w-full max-w-2xl h-4/6 flex flex-col justify-between border border-neutral-700 rounded-lg p-8">
         <h1 className="text-center text-2xl">CHOOSE YOUR CHARACTER</h1>
         <div className="flex justify-between items-center gap-4">
-          <PlayerCard />
-          <PlayerCard />
+          <PlayerCard playerName="Player 1" playerType="human" />
+          <PlayerCard playerName="Player 2" playerType="cpu" />
         </div>
         <button>START GAME!</button>
       </div>
