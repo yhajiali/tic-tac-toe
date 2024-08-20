@@ -6,7 +6,7 @@ type Props = {};
 
 const Footer = ({}: Props) => {
   return (
-    <footer className="p-6">
+    <footer className="w-full max-w-7xl mx-auto px-4 py-2">
       <Separator orientation={"horizontal"} size="4" />
       <Flex justify={"between"} className="w-full max-w-7xl p-2 text-sm">
         <Text>

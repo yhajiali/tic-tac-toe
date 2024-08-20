@@ -38,7 +38,7 @@ export default function RootLayout({
               <FrameIcon /> Tikki Takka
             </Flex>
           </header>
-          <main className="p-6">{children}</main>
+          <main className="p-">{children}</main>
           <Footer />
         </Theme>
       </body>

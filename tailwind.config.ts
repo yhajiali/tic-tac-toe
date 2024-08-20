@@ -17,6 +17,16 @@ const config: Config = {
         sans: ["var(--font-geist-sans)"],
         mono: ["var(--font-geist-mono)"],
       },
+      keyframes: {
+        fadeIn: {
+          "0%": { transform: "scale(0)" },
+          "75%": { transform: "scale(1.2)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 0.4s ease-in-out",
+      },
     },
   },
   plugins: [],
