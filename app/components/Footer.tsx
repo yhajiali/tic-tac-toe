@@ -2,9 +2,7 @@ import { ExternalLinkIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Flex, Separator, Text } from "@radix-ui/themes";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-type Props = {};
-
-const Footer = ({}: Props) => {
+const Footer = () => {
   return (
     <footer className="w-full max-w-7xl mx-auto px-4 py-2">
       <Separator orientation={"horizontal"} size="4" />

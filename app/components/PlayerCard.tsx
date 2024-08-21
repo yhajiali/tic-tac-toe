@@ -15,9 +15,7 @@ type Props = {
 const PlayerCard = ({ playerName, playerType }: Props) => {
   const [type, setType] = useState(playerType);
   const [player, setPlayer] = useState({
-    avatar: `https://picsum.photos/id/${
-      Math.floor(Math.random() * 1000) + 1
-    }/200/200`,
+    avatar: "",
     name: "",
     color: "",
   });
@@ -55,15 +53,6 @@ const PlayerCard = ({ playerName, playerType }: Props) => {
     setType(type === "human" ? "cpu" : "human");
   };
 
-  const changeAvatar = () => {
-    setPlayer({
-      ...player,
-      avatar: `https://picsum.photos/id/${
-        Math.floor(Math.random() * 1000) + 1
-      }/200/200`,
-    });
-  };
-
   const randomisePlayer = () => {
     setPlayer({
       ...player,
@@ -74,12 +63,22 @@ const PlayerCard = ({ playerName, playerType }: Props) => {
     });
   };
 
+  // Change to a random selection of Avatars
+  const changeAvatar = () => {
+    setPlayer({
+      ...player,
+      avatar: `https://picsum.photos/id/${
+        Math.floor(Math.random() * 1000) + 1
+      }/200/200`,
+    });
+  };
+
   return (
     <div className="w-full md:w-1/2 h-48 md:h-96 p-4 border border-neutral-700 rounded-xl flex flex-col justify-center gap-4">
       <Flex justify={"center"} gap={"6"}>
-        <div className="flex flex-col items-center justify-between gap-2 relative">
+        <div className="relative">
           <div
-            className="absolute -left-2 -top-2 md:static z-50"
+            className="absolute -left-2 -top-2 z-50"
             onClick={randomisePlayer}
           >
             <Tooltip content="Randomise">
@@ -99,17 +98,9 @@ const PlayerCard = ({ playerName, playerType }: Props) => {
           />
         </div>
 
-        <Flex
-          direction={"column"}
-          justify={"center"}
-          align={"center"}
-          gap={"2"}
-          className="w-2/5"
-        >
+        <div className="flex flex-col justify-center items-center gap-2 w-2/5">
           <input
             type="color"
-            name=""
-            id=""
             className="w-full h-10 border border-neutral-700 rounded"
           />
           <button
@@ -120,12 +111,13 @@ const PlayerCard = ({ playerName, playerType }: Props) => {
           >
             {type}
           </button>
-        </Flex>
+        </div>
       </Flex>
 
       <TextField.Root
         placeholder={playerName}
         radius="large"
+        onChange={(e) => setPlayer({ ...player, name: e.target.value })}
         value={player.name}
       >
         <TextField.Slot>
