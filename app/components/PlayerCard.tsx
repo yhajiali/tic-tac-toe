@@ -1,11 +1,9 @@
 "use client";
-import {
-  ImageIcon,
-  PersonIcon,
-  QuestionMarkCircledIcon,
-} from "@radix-ui/react-icons";
+import { ImageIcon, PersonIcon, SymbolIcon } from "@radix-ui/react-icons";
 import { Avatar, Flex, IconButton, TextField, Tooltip } from "@radix-ui/themes";
 import React, { useState } from "react";
+import { characters, colors } from "../data/gameSelectionData";
+import Image from "next/image";
 
 type Props = {
   playerName: string;
@@ -13,103 +11,83 @@ type Props = {
 };
 
 const PlayerCard = ({ playerName, playerType }: Props) => {
-  const [type, setType] = useState(playerType);
   const [player, setPlayer] = useState({
-    avatar: "",
+    avatar:
+      playerType === "human" ? characters[0].avatar : characters[1].avatar,
     name: "",
-    color: "",
+    color: playerType === "human" ? "#0099ff" : "#ff0000",
+    type: playerType,
   });
-  const nameArray = [
-    "Alice",
-    "Bob",
-    "Charlie",
-    "David",
-    "Eve",
-    "Frank",
-    "Grace",
-    "Harry",
-    "Isabella",
-    "Jack",
-    "Jill",
-    "Kim",
-    "Lisa",
-    "Mary",
-    "Nancy",
-    "Olivia",
-    "Peter",
-    "Quinn",
-    "Rachel",
-    "Sophia",
-    "Tina",
-    "Ursula",
-    "Vivienne",
-    "Wendy",
-    "Xavier",
-    "Yvonne",
-    "Zoe",
-  ];
-
-  const changePlayerType = () => {
-    setType(type === "human" ? "cpu" : "human");
-  };
 
   const randomisePlayer = () => {
+    // get random player from array of characters
+    const randomPlayer =
+      characters[Math.floor(Math.random() * characters.length)];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    // set the player details to that random character
     setPlayer({
       ...player,
-      avatar: `https://picsum.photos/id/${
-        Math.floor(Math.random() * 1000) + 1
-      }/200/200`,
-      name: nameArray[Math.floor(Math.random() * nameArray.length)],
+      avatar: randomPlayer.avatar,
+      name: randomPlayer.name,
+      color: randomColor,
     });
   };
 
-  // Change to a random selection of Avatars
+  // playerType from human -> computer or vice versa
+  const changePlayerType = () => {
+    setPlayer({ ...player, type: player.type === "human" ? "cpu" : "human" });
+  };
+
+  // Change from selection of Avatars
   const changeAvatar = () => {
     setPlayer({
       ...player,
-      avatar: `https://picsum.photos/id/${
-        Math.floor(Math.random() * 1000) + 1
-      }/200/200`,
+      avatar: characters[Math.floor(Math.random() * characters.length)].avatar,
     });
   };
 
   return (
-    <div className="w-full md:w-1/2 h-48 md:h-96 p-4 border border-neutral-700 rounded-xl flex flex-col justify-center gap-4">
-      <Flex justify={"center"} gap={"6"}>
-        <div className="relative">
+    <div className="w-full md:w-1/2 h-48 md:h-96 p-4 border border-neutral-700 rounded-xl flex flex-col justify-center gap-4 opacity-80">
+      <Flex justify={"center"} gap={"6"} className="md:flex-col items-center">
+        <div
+          className={`relative rounded-lg`}
+          style={{ backgroundColor: player.color }}
+        >
           <div
-            className="absolute -left-2 -top-2 z-50"
+            className="absolute -left-2 -top-2 z-10"
             onClick={randomisePlayer}
           >
             <Tooltip content="Randomise">
               <IconButton radius="full" className="hover:cursor-pointer">
-                <QuestionMarkCircledIcon className="size-5" />
+                <SymbolIcon />
               </IconButton>
             </Tooltip>
           </div>
 
-          <Avatar
-            size="7"
-            radius="small"
-            fallback={<ImageIcon className="size-5" />}
-            src={player.avatar}
-            className="hover:scale-90 hover:cursor-pointer transition-transform duration-200"
-            onClick={changeAvatar}
-          />
+          <figure className="overflow-hidden size-24 md:size-32 flex justify-center items-center">
+            <Image
+              src={player.avatar}
+              className="hover:scale-90 hover:cursor-pointer transition-transform duration-200 size-32"
+              onClick={changeAvatar}
+              alt={``}
+            />
+          </figure>
         </div>
 
-        <div className="flex flex-col justify-center items-center gap-2 w-2/5">
+        <div className="flex flex-col justify-center items-center gap-2 w-2/5 md:w-2/3">
           <input
             type="color"
             className="w-full h-10 border border-neutral-700 rounded"
+            value={player.color}
+            onChange={(e) => setPlayer({ ...player, color: e.target.value })}
           />
           <button
             onClick={changePlayerType}
-            className={`w-full h-10 border border-neutral-700 rounded uppercase font-bold text-sm ${
-              type === "human" ? "text-blue-500" : "text-neutral-300"
+            className={`w-full h-10 border border-neutral-700 rounded uppercase font-bold text-sm bg-neutral-800 ${
+              player.type === "human" ? "text-blue-500" : "text-neutral-300"
             }`}
           >
-            {type}
+            {player.type}
           </button>
         </div>
       </Flex>
